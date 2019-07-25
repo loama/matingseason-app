@@ -1,6 +1,8 @@
 <template>
   <div id="app" v-bind:class="device.platform">
     <login-page />
+
+    <router-view />
   </div>
 </template>
 
