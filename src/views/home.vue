@@ -7,7 +7,9 @@
     </div>
 
     <div class="pages" v-bind:class="section">
-      <div class="page account"></div>
+      <div class="page account">
+        <account />
+      </div>
 
       <div class="page search">
         <div class="switch" v-bind:class="{on: on}" v-on:click="on = !on">
@@ -23,14 +25,23 @@
         </div>
       </div>
 
-      <div class="page matches"></div>
+      <div class="page matches">
+        <matches />
+      </div>
     </div>
 
   </div>
 </template>
 
 <script>
+import account from './account'
+import matches from './matches'
+
 export default {
+  components: {
+    'account': account,
+    'matches': matches
+  },
   data () {
     return {
       hide: false,
