@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-bind:class="device.platform">
+  <div id="app" class="not-selectable" v-bind:class="device.platform">
     <login-page />
 
     <router-view />
@@ -26,9 +26,9 @@ export default {
   methods: {
     onDeviceReady () {
       console.log("navigator.geolocation works well")
-      navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError)
+      // navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError)
 
-      // var watchId = navigator.geolocation.watchPosition(geolocationSuccess, geolocationError)
+      navigator.geolocation.watchPosition(this.onSuccess, this.onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true } )
     },
     onSuccess (position) {
       console.log(position.coords)
@@ -51,4 +51,12 @@ export default {
   html, body
     margin: 0
     overflow-x: hidden
+
+  .not-selectable
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
 </style>

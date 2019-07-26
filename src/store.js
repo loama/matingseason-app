@@ -7,7 +7,10 @@ export default new Vuex.Store({
   state: {
     loggedIn: false,
     user: {},
-    coords: null
+    coords: {
+      latitude: null,
+      longitude: null
+    }
   },
   mutations: {
     login (state, payload) {

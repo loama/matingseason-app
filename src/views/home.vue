@@ -2,18 +2,18 @@
   <div id="home">
     <div class="header" v-bind:class="section">
       <div class="section" v-bind:class="{active: section === 'account'}" v-on:click="section = 'account'">
-        <img class="light" src="../assets/cog-light.svg">
-        <img class="full" src="../assets/cog-full.svg">
+        <img class="light" src="../assets/user.svg">
+        <img class="full" src="../assets/user-pink.svg">
       </div>
 
       <div class="section" v-bind:class="{active: section === 'search'}" v-on:click="section = 'search'">
-        <img class="full" src="../assets/search-full.svg">
-        <img class="light" src="../assets/search-light.svg">
+        <img class="full" src="../assets/arrow-up-pink.svg">
+        <img class="light" src="../assets/arrow-up.svg">
       </div>
 
       <div class="section" v-bind:class="{active: section === 'matches'}" v-on:click="section = 'matches'">
-        <img class="light" src="../assets/comments-light.svg">
-        <img class="full" src="../assets/comments-full.svg">
+        <img class="light" src="../assets/arrows.svg">
+        <img class="full" src="../assets/arrows-pink.svg">
       </div>
     </div>
 
@@ -129,9 +129,11 @@ export default {
 
         &.active
           img.light
+            opacity: 0
             width: 24px
+
           img.full
-            opacity: 0.2
+            opacity: 1
             width: 24px
 
     .pages
@@ -165,7 +167,6 @@ export default {
           left: 0
 
         &.search
-          background: blue
           left: 100vw
 
         &.matches
