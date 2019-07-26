@@ -1,9 +1,15 @@
 <template>
   <div id="home">
     <div class="header" v-bind:class="section">
-      <div class="section" v-on:click="section = 'account'">account</div>
+      <div class="section" v-on:click="section = 'account'">
+        <img src="../assets/cog-light.svg">
+      </div>
+
       <div class="section" v-on:click="section = 'search'">search</div>
-      <div class="section" v-on:click="section = 'matches'">matches</div>
+
+      <div class="section" v-on:click="section = 'matches'">
+        <img src="../assets/comments-light.svg">
+      </div>
     </div>
 
     <div class="pages" v-bind:class="section">
@@ -82,7 +88,6 @@ export default {
         transform: translate3d(-33vw, 0, 0)
 
       .section
-        background: red
         cursor: pointer
         display: inline-block
         height: 56px
@@ -90,6 +95,9 @@ export default {
         margin-right: -4px
         text-align: center
         width: 33.33%
+
+        img
+          height: 24px
 
     .pages
       height: calc(100vh - 56px)
