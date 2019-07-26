@@ -12,15 +12,24 @@
 </template>
 
 <script>
+import store from '../store.js'
+
 export default {
-  data () {
-    return {
-      hide: false
+  computed: {
+    hide () {
+      let loggedIn = store.state.loggedIn
+      return loggedIn
     }
+  },
+  data () {
+    return {}
   },
   methods: {
     login () {
       this.hide = true
+
+      let user = {}
+      store.commit('login', user)
       // document.getElementById('login-email').focus()
     }
   },
