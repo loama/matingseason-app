@@ -1,14 +1,19 @@
 <template>
   <div id="home">
     <div class="header" v-bind:class="section">
-      <div class="section" v-on:click="section = 'account'">
-        <img src="../assets/cog-light.svg">
+      <div class="section" v-bind:class="{active: section === 'account'}" v-on:click="section = 'account'">
+        <img class="light" src="../assets/cog-light.svg">
+        <img class="full" src="../assets/cog-full.svg">
       </div>
 
-      <div class="section" v-on:click="section = 'search'">search</div>
+      <div class="section" v-bind:class="{active: section === 'search'}" v-on:click="section = 'search'">
+        <img class="full" src="../assets/search-full.svg">
+        <img class="light" src="../assets/search-light.svg">
+      </div>
 
-      <div class="section" v-on:click="section = 'matches'">
-        <img src="../assets/comments-light.svg">
+      <div class="section" v-bind:class="{active: section === 'matches'}" v-on:click="section = 'matches'">
+        <img class="light" src="../assets/comments-light.svg">
+        <img class="full" src="../assets/comments-full.svg">
       </div>
     </div>
 
@@ -93,11 +98,31 @@ export default {
         height: 56px
         line-height: 56px
         margin-right: -4px
+        position: relative
         text-align: center
         width: 33.33%
 
         img
           height: 24px
+          position: absolute
+
+          &.light
+            left: calc(50% - 12px)
+            top: 16px
+            width: 16px
+
+          &.full
+            left: calc(50% - 12px)
+            opacity: 0
+            top: 16px
+            width: 16px
+
+        &.active
+          img.light
+            width: 24px
+          img.full
+            opacity: 0.2
+            width: 24px
 
     .pages
       height: calc(100vh - 56px)
