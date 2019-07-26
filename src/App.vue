@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import store from 'store'
 import router from 'router'
 
 import loginPage from './views/loginPage'
@@ -23,6 +24,21 @@ export default {
     }
   },
   methods: {
+    onDeviceReady () {
+      console.log("navigator.geolocation works well")
+      navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError)
+
+      // var watchId = navigator.geolocation.watchPosition(geolocationSuccess, geolocationError)
+    },
+    onSuccess (position) {
+      console.log(position.coords)
+      store.commit('locationUpdate', position.coords)
+    },
+    onError (error) {
+      alert(error.code)
+      alert(error.message)
+    }
+
   },
   mounted () {
     document.addEventListener("deviceready", this.onDeviceReady, false)

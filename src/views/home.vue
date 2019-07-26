@@ -27,6 +27,8 @@
           <div class="indicator"></div>
         </div>
 
+        {{coords.latitude}}
+        {{coords.longitude}}
         <div class="disconnected" v-if="!on">
           you are disconnected
         </div>
@@ -45,6 +47,8 @@
 </template>
 
 <script>
+import store from '../store.js'
+
 import account from './account'
 import matches from './matches'
 
@@ -52,6 +56,11 @@ export default {
   components: {
     'account': account,
     'matches': matches
+  },
+  computed: {
+    coords () {
+      return store.state.coords
+    }
   },
   data () {
     return {

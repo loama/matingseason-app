@@ -49,6 +49,7 @@
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^5.0.0",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-geolocation": "^4.0.2",
     "fastclick": "^1.0.6",
     "ios-sim": "^9.0.0-dev.4",
     "loglevel": "^1.4.1",

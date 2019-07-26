@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     loggedIn: false,
-    user: {}
+    user: {},
+    coords: null
   },
   mutations: {
     login (state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     logout (state) {
       console.log('logout')
       state.loggedIn = false
+    },
+    locationUpdate (state, payload) {
+      state.coords = payload
     }
   },
   actions: {}
