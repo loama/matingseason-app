@@ -79,18 +79,19 @@ export default {
       background: #FFF
       border-bottom: 1px solid #F0F0F0
       height: 56px
-      transform: translate3d(0, 0, 0)
+      padding: 0 33vw
+      transform: translate3d(-33vw, 0, 0)
       transition: all 0.3s
-      width: 100vw
+      width: 166vw
 
       &.account
-        transform: translate3d(33vw, 0, 0)
-
-      &.search
         transform: translate3d(0, 0, 0)
 
-      &.matches
+      &.search
         transform: translate3d(-33vw, 0, 0)
+
+      &.matches
+        transform: translate3d(-66vw, 0, 0)
 
       .section
         cursor: pointer
@@ -100,7 +101,7 @@ export default {
         margin-right: -4px
         position: relative
         text-align: center
-        width: 33.33%
+        width: 33.33vw
 
         img
           height: 24px
@@ -152,7 +153,6 @@ export default {
         width: 100vw
 
         &.account
-          background: orange
           left: 0
 
         &.search
