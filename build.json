@@ -15,5 +15,21 @@
         "-UseModernBuildSystem=0"
       ]
     }
+  },
+  "android": {
+    "debug": {
+         "keystore": "..\android.keystore",
+         "storePassword": "android",
+         "alias": "mykey1",
+         "password" : "password",
+         "keystoreType": ""
+     },
+     "release": {
+         "keystore": "..\android.keystore",
+         "storePassword": "",
+         "alias": "mykey2",
+         "password" : "password",
+         "keystoreType": ""
+     }
   }
 }

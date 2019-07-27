@@ -28,8 +28,6 @@ export default {
   },
   methods: {
     login () {
-      this.hide = true
-
       let user = {}
       store.commit('login', user)
       // document.getElementById('login-email').focus()

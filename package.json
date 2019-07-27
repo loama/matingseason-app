@@ -1,5 +1,5 @@
 {
-  "name": "com.zeel.therapist",
+  "name": "com.matingseason.app",
   "version": "1.0.0",
   "description": "Brand new cordova project with framework7 - vue - webpack!",
   "scripts": {
@@ -47,7 +47,7 @@
   "dependencies": {
     "cordova-android": "^8.0.0",
     "cordova-browser": "^6.0.0",
-    "cordova-ios": "^5.0.0",
+    "cordova-ios": "^5.0.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.0.2",
     "fastclick": "^1.0.6",
@@ -57,7 +57,7 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.1.0"
   },
-  "displayName": "ZeelProvider",
+  "displayName": "MatingSeason",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

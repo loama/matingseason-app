@@ -23,19 +23,7 @@
       </div>
 
       <div class="page search">
-        <div class="switch" v-bind:class="{on: on}" v-on:click="on = !on">
-          <div class="indicator"></div>
-        </div>
-
-        {{coords.latitude}}
-        {{coords.longitude}}
-        <div class="disconnected" v-if="!on">
-          you are disconnected
-        </div>
-
-        <div class="connected" v-if="on">
-          you are connected
-        </div>
+        <search />
       </div>
 
       <div class="page matches">
@@ -47,33 +35,23 @@
 </template>
 
 <script>
-import store from '../store.js'
-
 import account from './account'
 import matches from './matches'
+import search from './search'
 
 export default {
   components: {
     'account': account,
-    'matches': matches
-  },
-  computed: {
-    coords () {
-      return store.state.coords
-    }
+    'matches': matches,
+    'search': search
   },
   data () {
     return {
       hide: false,
-      on: false,
       section: 'account'
     }
   },
   methods: {
-    login () {
-      this.hide = true
-      // document.getElementById('login-email').focus()
-    }
   },
   name: 'home'
 }
@@ -156,6 +134,7 @@ export default {
         transform: translate3d(-200vw, 0, 0)
 
       .page
+        background-image: linear-gradient(45deg, #FF008A, #1C4266)
         display: inline-block
         height: calc(100vh - 56px)
         margin-left: 0
@@ -170,34 +149,6 @@ export default {
           left: 100vw
 
         &.matches
-          background: green
           left: 200vw
 
-    .switch
-      background: #F0F0F0
-      border-radius: 20px
-      height: 40px
-      left: calc(50vw - 40px)
-      position: absolute
-      top: 80px
-      width: 80px
-
-      .indicator
-        background: #D0D0D0
-        border-radius: 20px
-        box-shadow: 0 1px 3px #6a3093
-        height: 40px
-        left: 0
-        position: absolute
-        top: 0
-        transform: translate3d(0, 0, 0)
-        transition: all 0.3s
-        width: 40px
-
-      &.on
-        .indicator
-          background: #6a3093; /* fallback for old browsers */
-          background: -webkit-linear-gradient(to right, #505297, #8d4dd1); /* Chrome 10-25, Safari 5.1-6 */
-          background: linear-gradient(to right, #505297, #8d4dd1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-          transform: translate3d(40px, 0, 0)
 </style>

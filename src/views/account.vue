@@ -26,8 +26,10 @@ export default {
 
 <style scoped lang="sass">
   .logout
-    border: 1px solid black
+    background: #FFF
     bottom: 20px
+    border-radius: 4px
+    color: red
     position: absolute
     height: 56px
     line-height: 56px

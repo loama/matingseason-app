@@ -49,7 +49,9 @@ export default {
 
 <style lang="sass">
   html, body
+    font-family: Arial
     margin: 0
+    max-width: 100vw
     overflow-x: hidden
 
   .not-selectable
