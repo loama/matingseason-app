@@ -14,8 +14,10 @@ export default new Vuex.Store({
   },
   mutations: {
     login (state, payload) {
+      console.log(payload)
       console.log('login')
       state.loggedIn = true
+      state.user = payload.data
     },
     logout (state) {
       console.log('logout')

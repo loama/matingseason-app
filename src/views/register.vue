@@ -5,10 +5,10 @@
     <div class="section one">
       <form>
         <div> Fill in your details </div>
-        <input type="text" placeholder="Username">
-        <input type="email" placeholder="Email">
-        <input type="number" placeholder="Age">
-        <input type="text" placeholder="Password">
+        <input type="text" placeholder="Username" v-model="username">
+        <input type="email" placeholder="Email" v-model="email">
+        <input type="number" placeholder="Age" v-model="age">
+        <input type="text" placeholder="Password" v-model="password">
       </form>
     </div>
 
@@ -18,26 +18,81 @@
     <div class="section three">
     </div>
 
+    <div class="success" v-if="registered">
+      Correctly registered, login in automatically in {{numberOfSeconds}} seconds
+    </div>
+
     <div class="position">
       <div class="dot one"></div>
       <div class="dot two"></div>
       <div class="dot three"></div>
     </div>
 
-    <img class="arrow-right" src="../assets/arrow-right.svg">
+    <img class="arrow-right" src="../assets/arrow-right.svg" v-bind:class="{active: canRegister}" v-on:click="register()">
   </div>
 </template>
 
 <script>
+const axios = require('axios')
+
+import store from '../store.js'
 
 export default {
+  computed: {
+    validUsername () {
+      return this.username.length > 4
+    },
+    validEmail () {
+      var re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
+      return re.test(String(this.email).toLowerCase())
+    },
+    validAge () {
+      return this.age > 17
+    },
+    validPassword () {
+      return this.password.length > 5
+    },
+    canRegister () {
+      return (this.validUsername && this.validEmail && this.validAge && this.validPassword)
+    }
+  },
   components: {
   },
   data () {
     return {
+      username: '',
+      email: '',
+      age: '',
+      password: '',
+      registered: false,
+      numberOfSeconds: 3
     }
   },
   methods: {
+    register () {
+      let self = this
+      axios.post('https://matingseason-api.herokuapp.com/register', {
+        username: '',
+        email: this.email,
+        age: '',
+        password: this.password
+      })
+        .then(function (response) {
+          self.registered = true
+          console.log(response)
+          console.log(response.data)
+          setInterval(function () {
+            if (self.numberOfSeconds === 0) {
+              store.commit('login', response.data)
+            } else {
+              self.numberOfSeconds = self.numberOfSeconds - 1
+            }
+          }, 1000)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
   },
   name: 'register'
 }
@@ -77,10 +132,27 @@ export default {
         padding: 0 16px
         width: calc(100vw - 128px)
 
+    .success
+      background: #FFF
+      border-radius: 16px
+      height: 264px
+      left: 32px
+      line-height: 256px
+      position: absolute
+      text-align: center
+      top: 144px
+      width: calc(100vw - 64px)
+
     .arrow-right
       bottom: 32px
       height: 65px
+      opacity: 0.2
+      pointer-events: none
       position: absolute
       right: 32px
       width: 65px
+
+      &.active
+        opacity: 1
+        pointer-events: all
 </style>

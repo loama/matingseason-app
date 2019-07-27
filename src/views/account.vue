@@ -11,6 +11,11 @@
 import store from '../store.js'
 
 export default {
+  computed: {
+    user () {
+      return store.state.user
+    }
+  },
   data () {
     return {
     }

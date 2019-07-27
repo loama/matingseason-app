@@ -5,22 +5,26 @@
     <img class="name" src="../assets/MatingSeason.png">
 
     <form v-on:submit.prevent="login">
-      <input type="email" placeholder="email">
-      <input type="password" placeholder="password">
+      <input type="email" placeholder="email" v-model="email">
+      <input type="password" placeholder="password" v-model="password">
       <input type="submit" value="Log In">
     </form>
 
     <div class="register">
       <span>or</span>
-      <div>Register</div>
+      <div v-on:click="register = true">Register</div>
     </div>
 
-    <register />
+    <register v-if="register"/>
+
+    <div v-if="register" v-on:click="register = false" class="backlogin"> back to login </div>
 
   </div>
 </template>
 
 <script>
+const axios = require('axios')
+
 import store from '../store.js'
 
 import register from './register'
@@ -36,12 +40,28 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      email: '',
+      password: '',
+      register: false
+    }
   },
   methods: {
     login () {
-      let user = {}
-      store.commit('login', user)
+
+      let self = this
+      axios.post('https://matingseason-api.herokuapp.com/register', {
+        email: this.email,
+        password: this.password
+      })
+        .then(function (response) {
+          console.log(response)
+          console.log(response.data)
+          store.commit('login', response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
       // document.getElementById('login-email').focus()
     }
   },
@@ -117,4 +137,10 @@ export default {
         color: purple
         margin-top: 40px
         text-decoration: underline
+
+    .backlogin
+      bottom: 32px
+      left: 32px
+      position: absolute
+      z-index: 100
 </style>
