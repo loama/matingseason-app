@@ -10,13 +10,25 @@
       <input type="submit" value="Log In">
     </form>
 
+    <div class="register">
+      <span>or</span>
+      <div>Register</div>
+    </div>
+
+    <register />
+
   </div>
 </template>
 
 <script>
 import store from '../store.js'
 
+import register from './register'
+
 export default {
+  components: {
+    'register': register
+  },
   computed: {
     hide () {
       let loggedIn = store.state.loggedIn
@@ -91,4 +103,18 @@ export default {
           margin-top: 32px
           outline: none
           width: 240px
+
+    .register
+      text-align: center
+      width: 100%
+
+      span
+        color: #FFF
+        display: block
+        margin-top: 12px
+
+      div
+        color: purple
+        margin-top: 40px
+        text-decoration: underline
 </style>
