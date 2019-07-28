@@ -17,6 +17,9 @@ export default {
     'login-page': loginPage
   },
   computed: {
+    account () {
+      return store.state.user
+    }
   },
   data () {
     return {
@@ -27,7 +30,6 @@ export default {
     onDeviceReady () {
       console.log("navigator.geolocation works well")
       // navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError)
-
       navigator.geolocation.watchPosition(this.onSuccess, this.onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true } )
     },
     onSuccess (position) {
@@ -35,8 +37,8 @@ export default {
       store.commit('locationUpdate', position.coords)
     },
     onError (error) {
-      alert(error.code)
-      alert(error.message)
+      console.log(error.code)
+      console.log(error.message)
     }
 
   },

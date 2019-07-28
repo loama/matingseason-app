@@ -3,7 +3,7 @@
     <h1>REGISTRATION</h1>
 
     <div class="section one">
-      <form>
+      <form v-on:submit.prevent="register()">
         <div> Fill in your details </div>
         <input type="text" placeholder="Username" v-model="username">
         <input type="email" placeholder="Email" v-model="email">
@@ -81,9 +81,10 @@ export default {
           self.registered = true
           console.log(response)
           console.log(response.data)
-          setInterval(function () {
+          var loginInterval = setInterval(function () {
             if (self.numberOfSeconds === 0) {
               store.commit('login', response.data)
+              clearInterval(loginInterval)
             } else {
               self.numberOfSeconds = self.numberOfSeconds - 1
             }

@@ -1,3 +1,4 @@
+const axios = require('axios')
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -25,6 +26,21 @@ export default new Vuex.Store({
     },
     locationUpdate (state, payload) {
       state.coords = payload
+      console.log(state.user.id)
+      if (state.user.id !== undefined && state.user.id !== null) {
+        axios.post('https://matingseason-api.herokuapp.com/location', {
+          id: state.user.id,
+          lat: state.coords.latitude,
+          lng: state.coords.longitude
+        })
+          .then(function (response) {
+            console.log(response)
+            console.log(response.data)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     }
   },
   actions: {}

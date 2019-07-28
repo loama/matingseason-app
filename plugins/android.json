@@ -10,10 +10,10 @@
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.matingseason.app"
     },
-    "cordova-plugin-whitelist": {
+    "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.matingseason.app"
     },
-    "cordova-plugin-geolocation": {
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.matingseason.app"
     }
   },

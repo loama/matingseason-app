@@ -1,18 +1,21 @@
 <template>
   <div id="search">
 
-    <div class="switch" v-bind:class="{on: on}" v-on:click="on = !on">
+    <div class="switch" v-bind:class="{on: on}" v-on:click="connection()">
       <div class="indicator"></div>
     </div>
 
     <div class="disconnected" v-if="!on">
-      <h1> Jmm your’e not connectd to the matrix </h1>
+      <h1> Jmm you’re not connected to the matrix </h1>
       <img src="../assets/broken-arrow.png">
     </div>
 
     <div class="connected" v-if="on">
       <h2> Here are the closest ones </h2>
       <p> Swipe to show your interest. </p>
+      <div v-for="user in closeUsers" v-bind:key="user.id" class="user">
+        {{user.email}}
+      </div>
     </div>
 
     {{coords.latitude}}
@@ -22,20 +25,59 @@
 </template>
 
 <script>
+const axios = require('axios')
+
 import store from '../store.js'
 
 export default {
   computed: {
+    account () {
+      return store.state.user
+    },
     coords () {
       return store.state.coords
     }
   },
   data () {
     return {
-      on: false
+      on: false,
+      closeUsers: []
     }
   },
-  methods: {},
+  methods: {
+    connection () {
+      let self = this
+      axios.post('https://matingseason-api.herokuapp.com/status', {
+        email: this.account.email,
+        status: !this.on
+      })
+        .then(function (response) {
+          console.log(response)
+          console.log(response.data)
+          self.on = !self.on
+          self.loadCloseUsers()
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    loadCloseUsers () {
+      console.log('closeusers')
+      let self = this
+      console.log(self.coords.latitude)
+      console.log(self.coords.longitude)
+      axios.post('https://matingseason-api.herokuapp.com/closeUsers', {
+        lat: self.coords.latitude,
+        lng: self.coords.longitude
+      })
+        .then(function (response) {
+          self.closeUsers = response.data.data
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  },
   name: 'search'
 }
 </script>
@@ -45,7 +87,7 @@ export default {
     background: #4F224A
     border-radius: 20px
     height: 24px
-    margin: 0 calc(50vw - 40px)
+    margin: 32px calc(50vw - 40px)
     position: relative
     width: 54px
 
@@ -80,4 +122,11 @@ export default {
       color: white
       font-size: 18px
       margin-top: 64px
+
+  .user
+    background: #FFF
+    border-radius: 8px
+    height: 56px
+    margin: 8px 32px
+    width: calc(100vw - 64px)
 </style>
