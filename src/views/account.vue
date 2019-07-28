@@ -2,7 +2,7 @@
   <div id="account">
     <h1 class="title"> Account </h1>
     <div class="profile-pic"></div>
-    <div class="name"> user name </div>
+    <div class="name"> {{user.username}} <span>|</span> {{user.age}} </div>
 
     <div class="logout" v-on:click="logout()">logout</div>
   </div>
@@ -51,11 +51,18 @@ export default {
   .profile-pic
     background: gray
     border-radius: 50%
-    height: 80px
-    margin: 20px auto
-    width: 80px
+    height: 96px
+    margin: 32px auto
+    width: 96px
 
   .name
+    color: #4a4a4a
+    font-family: 'hoefler-text-black'
+    font-size: 24px
     text-align: center
+    text-transform: capitalize
     width: 100%
+
+    span
+      color: #D0D0D0
 </style>

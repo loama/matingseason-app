@@ -8,6 +8,7 @@
         <input type="text" placeholder="Username" v-model="username">
         <input type="email" placeholder="Email" v-model="email">
         <input type="number" placeholder="Age" v-model="age">
+        <input type="file" accept="image/*" capture="camera" id="profile_picture"/>
         <input type="text" placeholder="Password" v-model="password">
       </form>
     </div>
@@ -71,11 +72,15 @@ export default {
   methods: {
     register () {
       let self = this
+      let picture = document.getElementById('profile_picture').value
+      console.log(picture)
+
       axios.post('https://matingseason-api.herokuapp.com/register', {
-        username: '',
+        username: this.username,
         email: this.email,
-        age: '',
-        password: this.password
+        age: this.age,
+        password: this.password,
+        profile_picture: picture
       })
         .then(function (response) {
           self.registered = true

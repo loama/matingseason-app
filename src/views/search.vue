@@ -13,28 +13,31 @@
 
     <div class="connected" v-if="on">
       <div class="card three" v-if="closeUsers.length > 0" v-bind:class="[closeUsers[0].class, closeUsers[0].hide]">
-        {{closeUsers[0].email}}
+        <div class="name">{{closeUsers[0].username}} <span> | </span> {{closeUsers[0].age}}</div>
+        <img src="">
       </div>
 
       <div class="card two" v-if="closeUsers.length > 1" v-bind:class="[closeUsers[1].class, closeUsers[0].hide]">
-        {{closeUsers[1].email}}
+        <div class="name">{{closeUsers[0].username}} <span> | </span> {{closeUsers[0].age}}</div>
+        <img src="">
       </div>
 
       <div class="card one" v-if="closeUsers.length > 3" v-bind:class="[closeUsers[2].class, closeUsers[0].hide]">
-        {{closeUsers[2].email}}
+        <div class="name">{{closeUsers[0].username}} <span> | </span> {{closeUsers[0].age}}</div>
+        <img src="">
       </div>
 
       <div v-for="(user, index) in closeUsers" v-bind:key="user.id" class="card" v-if="index > 2 && index < amountOfCards" v-bind:class="[user.class, user.hide]">
-        {{user.email}}
-        {{user.class}}
+        <div class="name">{{user.username}} <span> | </span> {{user.age}}</div>
+        <img src="">
       </div>
 
       <div class="button later" v-on:click="later()">
-        later
+        <img src="../assets/close.svg" class="close">
       </div>
 
       <div class="button arrow" v-on:click="arrow()">
-        arrow
+        <img src="../assets/love.svg" class="love">
       </div>
     </div>
 
@@ -109,8 +112,25 @@ export default {
       let length = this.amountOfCards
       let self = this
       this.$set(this.closeUsers[length - 1], 'class', 'arrow')
+
+      axios.post('https://matingseason-api.herokuapp.com/like', {
+        liked: self.closeUsers[self.amountOfCards - 1].id,
+        liker: self.account.id
+      })
+        .then(function (response) {
+          // verify match
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+
       setTimeout(function () {
-        self.$set(self.closeUsers[length - 1], 'hide', 'hide')
+        console.log('a')
+        console.log(self.closeUsers)
+        console.log(self.amountOfCards - 1)
+        console.log(self.closeUsers[self.amountOfCards - 1])
+        self.$set(self.closeUsers[self.amountOfCards - 1], 'hide', 'hide')
         self.amountOfCards = self.amountOfCards - 1
       }, 300)
       // axios
@@ -210,6 +230,25 @@ export default {
       &.hide
         display: none
 
+      .name
+        bottom: 16px
+        color: #4A4A4A
+        font-size: 24px
+        left: 16px
+        position: absolute
+        text-transform: capitalize
+
+        span
+          color: #D0D0D0
+
+      img
+        background: #F0F0F0
+        height: calc(100vw - 64px)
+        left: 16px
+        position: absolute
+        top: 16px
+        width: calc(100% - 32px)
+
     .button.later
       border-radius: 50%
       box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.1)
@@ -227,6 +266,13 @@ export default {
       top: 600px
       right: 56px
       width: 56px
+
+    .button
+      img.close
+        margin: 17px
+
+      img.love
+        margin: 17px 13px
 
   .user
     background: #FFF
