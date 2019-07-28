@@ -12,19 +12,19 @@
     </div>
 
     <div class="connected" v-if="on">
-      <div class="card three" v-if="closeUsers.length > 0" v-bind:class="closeUsers[0].class">
+      <div class="card three" v-if="closeUsers.length > 0" v-bind:class="[closeUsers[0].class, closeUsers[0].hide]">
         {{closeUsers[0].email}}
       </div>
 
-      <div class="card two" v-if="closeUsers.length > 1" v-bind:class="closeUsers[1].class">
+      <div class="card two" v-if="closeUsers.length > 1" v-bind:class="[closeUsers[1].class, closeUsers[0].hide]">
         {{closeUsers[1].email}}
       </div>
 
-      <div class="card one" v-if="closeUsers.length > 3" v-bind:class="[closeUsers[2].class]">
+      <div class="card one" v-if="closeUsers.length > 3" v-bind:class="[closeUsers[2].class, closeUsers[0].hide]">
         {{closeUsers[2].email}}
       </div>
 
-      <div v-for="(user, index) in closeUsers" v-bind:key="user.id" class="card" v-if="index > 2" v-bind:class="[user.class]">
+      <div v-for="(user, index) in closeUsers" v-bind:key="user.id" class="card" v-if="index > 2 && index < amountOfCards" v-bind:class="[user.class, user.hide]">
         {{user.email}}
         {{user.class}}
       </div>
@@ -97,14 +97,22 @@ export default {
     },
     later () {
       let length = this.amountOfCards
+      let self = this
       this.$set(this.closeUsers[length - 1], 'class', 'later')
-      this.amountOfCards = this.amountOfCards - 1
+      setTimeout(function () {
+        self.$set(self.closeUsers[length - 1], 'hide', 'hide')
+        self.amountOfCards = self.amountOfCards - 1
+      }, 300)
       // axios
     },
     arrow () {
       let length = this.amountOfCards
+      let self = this
       this.$set(this.closeUsers[length - 1], 'class', 'arrow')
-      this.amountOfCards = this.amountOfCards - 1
+      setTimeout(function () {
+        self.$set(self.closeUsers[length - 1], 'hide', 'hide')
+        self.amountOfCards = self.amountOfCards - 1
+      }, 300)
       // axios
     }
   },
@@ -198,6 +206,9 @@ export default {
 
       &.arrow
         transform: translate3d(100vw, 40px, 0) rotate3d(1, 0, 0, 45deg)
+
+      &.hide
+        display: none
 
     .button.later
       border-radius: 50%
