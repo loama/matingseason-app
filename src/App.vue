@@ -56,6 +56,8 @@ export default {
     max-width: 100vw
     overflow-x: hidden
     position: fixed
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    -webkit-tap-highlight-color: transparent
 
     @font-face
       font-family: 'hoefler-text-black'

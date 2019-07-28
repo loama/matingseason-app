@@ -1,5 +1,6 @@
 <template>
   <div id="account">
+    <h1 class="title"> Account </h1>
     <div class="profile-pic"></div>
     <div class="name"> user name </div>
 
@@ -30,6 +31,11 @@ export default {
 </script>
 
 <style scoped lang="sass">
+  h1.title
+    color: #4A4A4A
+    font-family: 'hoefler-text-black'
+    margin-left: 24px
+
   .logout
     background: #FFF
     bottom: 20px

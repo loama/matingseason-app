@@ -17,7 +17,10 @@
       </div>
     </div>
 
+    <img src="../assets/path-2.svg" class="path-2">
+
     <div class="pages" v-bind:class="section">
+
       <div class="page account">
         <account />
       </div>
@@ -65,11 +68,15 @@ export default {
     .header
       background: #FFF
       border-bottom: 1px solid #F0F0F0
+      bottom: 0
       height: 56px
+      left: 0
       padding: 0 33vw
+      position: fixed
       transform: translate3d(-33vw, 0, 0)
       transition: all 0.3s
       width: 166vw
+      z-index: 10
 
       &.account
         transform: translate3d(0, 0, 0)
@@ -114,12 +121,19 @@ export default {
             opacity: 1
             width: 24px
 
+    img.path-2
+      left: 0
+      position: fixed
+      top: 0
+      width: 100vw
+
     .pages
+      background: #FFF
       height: calc(100vh - 56px)
       left: 0
       max-width: 100vw
       position: absolute
-      top: 56px
+      top: 0
       transform: translate3d(0, 0, 0)
       transition: all 0.3s
       vertical-align: top
@@ -134,7 +148,6 @@ export default {
         transform: translate3d(-200vw, 0, 0)
 
       .page
-        background-image: linear-gradient(45deg, #FF008A, #1C4266)
         display: inline-block
         height: calc(100vh - 56px)
         margin-left: 0
