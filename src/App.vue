@@ -55,6 +55,11 @@ export default {
     margin: 0
     max-width: 100vw
     overflow-x: hidden
+    position: fixed
+
+    @font-face
+      font-family: 'hoefler-text-black'
+      src: url('assets/font/HoeflerTextBlack.ttf')
 
   .not-selectable
     -webkit-touch-callout: none

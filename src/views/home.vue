@@ -117,12 +117,12 @@ export default {
     .pages
       height: calc(100vh - 56px)
       left: 0
+      max-width: 100vw
       position: absolute
       top: 56px
       transform: translate3d(0, 0, 0)
       transition: all 0.3s
       vertical-align: top
-      width: 300vw
 
       &.account
         transform: translate3d(0, 0, 0)

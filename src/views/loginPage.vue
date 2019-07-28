@@ -1,18 +1,34 @@
 <template>
   <div id="loginPage" v-bind:class="{hide: hide}">
 
-    <img class="logo" src="../assets/logo.png">
-    <img class="name" src="../assets/MatingSeason.png">
+    <img class="path" src="../assets/path-login.svg">
+    <img class="rabbit" src="../assets/rabbit-shape.png">
 
-    <form v-on:submit.prevent="login">
-      <input type="email" placeholder="email" v-model="email">
-      <input type="password" placeholder="password" v-model="password">
-      <input type="submit" value="Log In">
+    <form v-on:submit.prevent="login()">
+      <h1 class="title"> Login </h1>
+
+      <div class="input">
+        <input type="email"
+               v-model="email"
+               @focus="emailFocused = true"
+               @blur="emailFocused = false"
+               >
+        <div v-bind:class="{focused: emailPlaceholderUp}" class="placeholder">email</div>
+      </div>
+
+      <div class="input">
+        <input type="password"
+               v-model="password"
+               @focus="passwordFocused = true"
+               @blur="passwordFocused = false">
+        <div class="placeholder" v-bind:class="{focused: passwordPlaceholderUp}">password</div>
+      </div>
+
+      <input type="submit" value="Login">
     </form>
 
     <div class="register">
-      <span>or</span>
-      <div v-on:click="register = true">Register</div>
+      <div v-on:click="register = true"><span>New User?</span> Register</div>
     </div>
 
     <register v-if="register"/>
@@ -37,20 +53,35 @@ export default {
     hide () {
       let loggedIn = store.state.loggedIn
       return loggedIn || false
+    },
+    emailPlaceholderUp () {
+      if (this.email.length > 0 || this.emailFocused) {
+        return true
+      } else {
+        return false
+      }
+    },
+    passwordPlaceholderUp () {
+      if (this.password.length > 0 || this.passwordFocused) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   data () {
     return {
       email: '',
+      emailFocused: false,
       password: '',
+      passwordFocused: false,
       register: false
     }
   },
   methods: {
     login () {
-
       let self = this
-      axios.post('https://matingseason-api.herokuapp.com/register', {
+      axios.post('https://matingseason-api.herokuapp.com/login', {
         email: this.email,
         password: this.password
       })
@@ -71,7 +102,7 @@ export default {
 
 <style scoped lang="sass">
   #loginPage
-    background-image: radial-gradient(#3A3A3A, #1A1A1A)
+    background: #FFF
     height: 100vh
     left: 0
     position: absolute
@@ -79,40 +110,69 @@ export default {
     width: 100vw
     z-index: 100
 
+    img.path
+      left: 0
+      position: absolute
+      top: 0
+      width: 100vw
+
+    img.rabbit
+      left: 0
+      margin: 0 10vw
+      position: absolute
+      top: 0
+      width: 80vw
+      z-index: 1
+
     &.hide
       visibility: hidden
 
-    .logo
-      margin: 40px calc(50vw - 100px) 16px calc(50vw - 100px)
-      width: 200px
-
-    .name
-      margin: 12px calc(50vw - 72px)
-      width: 144px
-
     form
-      margin: 0 auto
+      background: #FFF
+      border-radius: 8px
+      box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.1)
+      margin: 28vh auto 0 auto
       padding: 8px
-      width: 294px
+      position: relative
+      width: calc(100vw - 32px)
+      z-index: 2
 
       .title
-        font-size: 40px
+        font-family: 'hoefler-text-black'
+        font-size: 28px
         display: block
-        text-align: center
+        padding-left: 16px
+        text-align: left
         width: 100%
+
+      div.input
+        position: relative
+
+        .placeholder
+          color: #959595
+          left: 16px
+          pointer-events: none
+          position: absolute
+          top: 24px
+          transition: all 0.3s
+          transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
+
+          &.focused
+            transform: translate3d(0, -24px, 0) scale3d(0.8, 0.8, 1)
 
       input
         border: none
-        border-radius: 24px
+        border-bottom: 1px solid #D8D8D8
+        background: #FFF
         height: 44px
         font-size: 14px
-        margin: 8px
+        margin: 8px 8px 16px 8px
         outline: none
-        padding: 0 32px
-        width: 212px
+        padding: 0 16px
+        width: calc(100vw - 80px)
 
         &[type="submit"]
-          background: purple
+          background: #FF4A73
           border: none
           border-radius: 24px
           color: #FFF
@@ -122,21 +182,19 @@ export default {
           margin-left: 24px
           margin-top: 32px
           outline: none
-          width: 240px
+          width: calc(100vw - 80px)
 
     .register
       text-align: center
       width: 100%
 
       span
-        color: #FFF
-        display: block
+        color: #959595
         margin-top: 12px
 
       div
-        color: purple
-        margin-top: 40px
-        text-decoration: underline
+        color: #FF4A73
+        margin-top: 20px
 
     .backlogin
       bottom: 32px

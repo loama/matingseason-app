@@ -107,6 +107,7 @@ export default {
     position: absolute
     top: 0
     width: 100vw
+    z-index: 20
 
     h1
       color: #FFF
